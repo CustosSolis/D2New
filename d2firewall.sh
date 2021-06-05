@@ -114,6 +114,7 @@ setup () {
   sudo iptables -A INPUT -s 162.254.196.66 -j DROP
   sudo iptables -A INPUT -s 162.254.198.103 -j DROP
   sudo iptables -A INPUT -s 162.254.199.178 -j DROP
+  sudo iptables -A INPUT -s 185.25.182.68 -j DROP
   sudo iptables -A INPUT -s 185.25.183.178 -j DROP
   sudo iptables -A INPUT -s 190.217.33.66 -j DROP
   sudo iptables -A INPUT -s 205.185.194.36 -j DROP
