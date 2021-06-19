@@ -122,20 +122,14 @@ setup () {
   sudo iptables -A INPUT -s 205.209.16.137 -j DROP
   sudo iptables -A INPUT -s 205.234.119.194 -j DROP
 
-  read -p "Enter your platform xbox, psn, steam: " platform
-  platform=$(echo "$platform" | xargs)
-  platform=${platform:-"psn"}
-
+  platform=xbox
   reject_str=$(get_platform_match_str $platform)
   echo $platform > /tmp/data.txt
-
-  read -p "Enter your network/netmask: " net
-  net=$(echo "$net" | xargs)
-  net=${net:-$DEFAULT_NET}
+  net=10.8.0.1/24
   echo $net >> /tmp/data.txt
 
   ids=()
-  read -p "Would you like to sniff the ID automatically?(psn/xbox/steam) y/n: " yn
+  read -p "Would you like to sniff the ID automatically? y/n: " yn
   yn=${yn:-"y"}
   if ! [[ $platform =~ ^(psn|xbox|steam)$ ]]; then
     yn="n"
