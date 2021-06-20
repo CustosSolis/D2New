@@ -105,7 +105,6 @@ setup () {
   sudo iptables -A INPUT -s 155.133.246.50 -j DROP
   sudo iptables -A INPUT -s 155.133.249.194 -j DROP
   sudo iptables -A INPUT -s 155.133.250.130 -j DROP
-  sudo iptables -A INPUT -s 155.133.252.51 -j DROP
   sudo iptables -A INPUT -s 155.133.253.4 -j DROP
   sudo iptables -A INPUT -s 155.133.254.138 -j DROP
   sudo iptables -A INPUT -s 162.254.192.70 -j DROP
@@ -122,14 +121,20 @@ setup () {
   sudo iptables -A INPUT -s 205.209.16.137 -j DROP
   sudo iptables -A INPUT -s 205.234.119.194 -j DROP
 
-  platform=xbox
+  read -p "Enter your platform xbox, psn, steam: " platform
+  platform=$(echo "$platform" | xargs)
+  platform=${platform:-"psn"}
+
   reject_str=$(get_platform_match_str $platform)
   echo $platform > /tmp/data.txt
-  net=10.8.0.1/24
+
+  read -p "Enter your network/netmask: " net
+  net=$(echo "$net" | xargs)
+  net=${net:-$DEFAULT_NET}
   echo $net >> /tmp/data.txt
 
   ids=()
-  read -p "Would you like to sniff the ID automatically? y/n: " yn
+  read -p "Would you like to sniff the ID automatically?(psn/xbox/steam) y/n: " yn
   yn=${yn:-"y"}
   if ! [[ $platform =~ ^(psn|xbox|steam)$ ]]; then
     yn="n"
